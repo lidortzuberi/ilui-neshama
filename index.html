@@ -4,16 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>יצירת עלון לעילוי נשמת</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&display=swap" rel="stylesheet">
-
     <style>
         body {
-            /* שינוי הגופן לגופן החדש שהוספנו */
-            font-family: 'Frank Ruhl Libre', serif;
-            line-height: 1.9; /* הגדלנו קצת את ריווח השורות לקריאות נוחה יותר */
+            font-family: 'Arial', sans-serif;
+            line-height: 1.8;
             background-color: #f4f4f4;
             color: #333;
             margin: 0;
@@ -26,14 +20,13 @@
             max-width: 800px;
             width: 100%;
             background: #fff;
-            padding: 30px; /* הגדלנו קצת את הריווח הפנימי */
+            padding: 25px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        h1, h2, h3 {
-            font-weight: 700; /* שימוש במשקל העבה יותר של הגופן לכותרות */
+        h1, h2 {
             text-align: center;
-            color: #004a99; /* מעט כהה יותר */
+            color: #0056b3;
         }
         .form-group {
             margin-bottom: 15px;
@@ -50,8 +43,6 @@
             border: 1px solid #ccc;
             box-sizing: border-box;
             font-size: 16px;
-             /* הגדרת הגופן גם עבור שדות הטקסט */
-            font-family: 'Frank Ruhl Libre', serif;
         }
         .gender-options {
             display: flex;
@@ -69,9 +60,6 @@
             font-size: 18px;
             cursor: pointer;
             transition: background-color 0.3s;
-            /* הגדרת הגופן גם עבור הכפתורים */
-            font-family: 'Frank Ruhl Libre', serif;
-            font-weight: 700;
         }
         button:hover {
             background-color: #0056b3;
@@ -84,16 +72,15 @@
             background-color: #f9f9f9;
         }
         .chapter-title {
-            font-weight: 700;
-            font-size: 1.4em; /* הגדלה קלה של כותרות הפרקים */
-            margin-top: 25px;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-top: 20px;
             border-bottom: 2px solid #0056b3;
             padding-bottom: 5px;
             color: #0056b3;
         }
         .verse {
-            margin-bottom: 12px; /* הגדלת ריווח בין הפסוקים */
-            font-size: 1.1em;
+            margin-bottom: 10px;
         }
         #printButton {
             margin-top: 20px;
@@ -108,7 +95,6 @@
         @media print {
             body {
                 background-color: #fff;
-                font-size: 12pt; /* הגדרת גודל גופן להדפסה */
             }
             .container {
                 box-shadow: none;
@@ -214,7 +200,7 @@
             `,
             'ז': `
                 <div class="verse">זְכֹר דָּבָר לְעַבְדֶּךָ עַל אֲשֶׁר יִחַלְתָּנִי.</div>
-                <div class="verse">זֹאת נֶחָמָתי בְעָנְיִי כִּי אִמְרָתְךָ חִיָּתְנִי.</div>
+                <div class="verse">זֹאת נֶחָמָתִי בְעָנְיִי כִּי אִמְרָתְךָ חִיָּתְנִי.</div>
                 <div class="verse">זֵדִים הֱלִיצֻנִי עַד מְאֹד מִתּוֹרָתְךָ לֹא נָטִיתִי.</div>
                 <div class="verse">זָכַרְתִּי מִשְׁפָּטֶיךָ מֵעוֹלָם יְהוָה וָאֶתְנֶחָם.</div>
                 <div class="verse">זַלְעָפָה אֲחָזַתְנִי מֵרְשָׁעִים עֹזְבֵי תּוֹרָתֶךָ.</div>
@@ -357,4 +343,84 @@
                 <div class="verse">שָׂשׂ אָנֹכִי עַל אִמְרָתֶךָ כְּמוֹצֵא שָׁלָל רָב.</div>
                 <div class="verse">שֶׁקֶר שָׂנֵאתִי וַאֲתַעֵבָה תּוֹרָתְךָ אָהָבְתִּי.</div>
                 <div class="verse">שֶׁבַע בַּיּוֹם הִלַּלְתִּיךָ עַל מִשְׁפְּטֵי צִדְקֶךָ.</div>
-                <div class="verse">שָׁלוֹם רָב לְאֹהֲבֵי תוֹרָתֶךָ וְאֵין לָ
+                <div class="verse">שָׁלוֹם רָב לְאֹהֲבֵי תוֹרָתֶךָ וְאֵין לָמוֹ מִכְשׁוֹל.</div>
+                <div class="verse">שִׂבַּרְתִּי לִישׁוּעָתְךָ יְהוָה וּמִצְו‍ֹתֶיךָ עָשִׂיתִי.</div>
+                <div class="verse">שָׁמְרָה נַפְשִׁי עֵדֹתֶיךָ וָאֹהֲבֵם מְאֹד.</div>
+                <div class="verse">שָׁמַרְתִּי פִקּוּדֶיךָ וְעֵדֹתֶיךָ כִּי כָל דְּרָכַי נֶגְדֶּךָ.</div>
+            `,
+            'ת': `
+                <div class="verse">תִּקְרַב רִנָּתִי לְפָנֶיךָ יְהוָה כִּדְבָרְךָ הֲבִינֵנִי.</div>
+                <div class="verse">תָּבוֹא תְחִנָּתִי לְפָנֶיךָ כְּאִמְרָתְךָ הַצִּילֵנִי.</div>
+                <div class="verse">תַּבַּעְנָה שְׂפָתַי תְּהִלָּה כִּי תְלַמְּדֵנִי חֻקֶּיךָ.</div>
+                <div class="verse">תַּעַן לְשׁוֹנִי אִמְרָתֶךָ כִּי כָל מִצְו‍ֹתֶיךָ צֶּדֶק.</div>
+                <div class="verse">תְּהִי יָדְךָ לְעָזְרֵנִי כִּי פִקּוּדֶיךָ בָחָרְתִּי.</div>
+                <div class="verse">תָּאַבְתִּי לִישׁוּעָתְךָ יְהוָה וְתוֹרָתְךָ שַׁעֲשֻׁעָי.</div>
+                <div class="verse">תְּחִי נַפְשִׁי וּתְהַלְלֶךָּ וּמִשְׁפָּטֶךָ יַעְזְרֻנִי.</div>
+                <div class="verse">תָּעִיתִי כְּשֶׂה אֹבֵד בַּקֵּשׁ עַבְדֶּךָ כִּי מִצְו‍ֹתֶיךָ לֹא שָׁכָחְתִּי.</div>
+            `
+        };
+
+        const hashkava = {
+            male: `
+                <div class="chapter-title">תפילת השכבה - "אל מלא רחמים"</div>
+                <div class="verse">אֵל מָלֵא רַחֲמִים שׁוֹכֵן בַּמְּרוֹמִים, הַמְצֵא מְנוּחָה נְכוֹנָה עַל כַּנְפֵי הַשְּׁכִינָה, בְּמַעֲלוֹת קְדוֹשִׁים וּטְהוֹרִים כְּזוֹהַר הָרָקִיעַ מַזְהִירִים, אֶת נִשְׁמַת [FULL_NAME] שֶׁהָלַךְ לְעוֹלָמוֹ, בַּעֲבוּר שֶׁאֲנַחְנוּ מִתְפַּלְלִים לְעִלּוּי נִשְׁמָתוֹ. לָכֵן בַּעַל הָרַחֲמִים יַסְתִּירֵהוּ בְּסֵתֶר כְּנָפָיו לְעוֹלָמִים, וְיִצְרוֹר בִּצְרוֹר הַחַיִּים אֶת נִשְׁמָתוֹ, ה' הוּא נַחֲלָתוֹ, וְיָנוּחַ בְּשָׁלוֹם עַל מִשְׁכָּבוֹ, וְנֹאמַר אָמֵן.</div>
+            `,
+            female: `
+                <div class="chapter-title">תפילת השכבה - "אל מלא רחמים"</div>
+                <div class="verse">אֵל מָלֵא רַחֲמִים שׁוֹכֵן בַּמְּרוֹמִים, הַמְצֵא מְנוּחָה נְכוֹנָה עַל כַּנְפֵי הַשְּׁכִינָה, בְּמַעֲלוֹת קְדוֹשִים וּטְהוֹרִים כְּזוֹהַר הָרָקִיעַ מַזְהִירִים, אֶת נִשְׁמַת [FULL_NAME] שֶׁהָלְכָה לְעוֹלָמָהּ, בַּעֲבוּר שֶׁאֲנַחְנוּ מִתְפַּלְלִים לְעִלּוּי נִשְמָתָהּ. לָכֵן בַּעַל הָרַחֲמִים יַסְתִּירֶהָ בְּסֵתֶר כְּנָפָיו לְעוֹלָמִים, וְיִצְרוֹר בִּצְרוֹר הַחַיִּים אֶת נִשְׁמָתָהּ, ה' הוּא נַחֲלָתָהּ, וְתָנוּחַ בְּשָׁלוֹם עַל מִשְׁכָּבָהּ, וְנֹאמַר אָמֵן.</div>
+            `
+        };
+
+        function generateContent() {
+            const name = document.getElementById('name').value.trim();
+            const parentName = document.getElementById('parentName').value.trim();
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const resultDiv = document.getElementById('result');
+            const printButton = document.getElementById('printButton');
+
+            if (!name || !parentName) {
+                alert("אנא מלאו את כל השדות.");
+                return;
+            }
+
+            // הסרת ניקוד ותווים סופיים
+            const cleanName = name.replace(/[^\u0590-\u05EA]/g, '');
+            const finalLetters = { 'ך': 'כ', 'ם': 'מ', 'ן': 'נ', 'ף': 'פ', 'ץ': 'צ' };
+            const letters = cleanName.split('').map(letter => finalLetters[letter] || letter);
+
+            const neshamaLetters = ['נ', 'ש', 'מ', 'ה'];
+            
+            let htmlContent = `<h2>לְעִלּוּי נִשְׁמַת ${name} ${gender === 'male' ? 'בֶּן' : 'בַּת'} ${parentName} ז"ל</h2>`;
+            
+            // פרקים לפי אותיות השם
+            htmlContent += `<div class="chapter-title">פרקי תהילים לפי אותיות השם '${name}'</div>`;
+            letters.forEach(letter => {
+                if (tehillim_119[letter]) {
+                    htmlContent += `<h3>פרק לאות ${letter}</h3>`;
+                    htmlContent += tehillim_119[letter];
+                }
+            });
+
+            // פרקים לפי אותיות "נשמה"
+            htmlContent += `<div class="chapter-title">פרקי תהילים לאותיות "נשמה"</div>`;
+            neshamaLetters.forEach(letter => {
+                if (tehillim_119[letter]) {
+                    htmlContent += `<h3>פרק לאות ${letter}</h3>`;
+                    htmlContent += tehillim_119[letter];
+                }
+            });
+
+            // תפילת השכבה
+            const connectionWord = gender === 'male' ? 'בֶּן' : 'בַּת';
+            const fullName = `${name} ${connectionWord} ${parentName}`;
+            htmlContent += hashkava[gender].replace('[FULL_NAME]', fullName);
+
+
+            resultDiv.innerHTML = htmlContent;
+            resultDiv.classList.remove('hidden');
+            printButton.classList.remove('hidden');
+        }
+
+    </script>
+</body>
+</html>
