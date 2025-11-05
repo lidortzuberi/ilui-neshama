@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>יצירת עלון ומודעת אבל</title>
+    <title>יצירת עלון ומודעת אבל - לעילוי נשמת</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,7 +28,7 @@
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            box-sizing: border-box; /* הוספנו כדי שהריווח יחושב נכון */
+            box-sizing: border-box; 
         }
         
         /* --- עיצוב לשוניות --- */
@@ -47,6 +47,10 @@
             border-radius: 5px 5px 0 0;
             font-size: 1.1em;
             font-weight: 700;
+        }
+        .tab-button:focus-visible { /* הוספה לנגישות מקלדת */
+            outline: 2px solid #0056b3;
+            outline-offset: 2px;
         }
         .tab-button.active {
             background-color: #fff;
@@ -78,6 +82,9 @@
             box-sizing: border-box;
             font-size: 16px;
             font-family: 'Frank Ruhl Libre', serif;
+        }
+        input:required, textarea:required { /* סימון ויזואלי קל לשדות חובה */
+            border-left: 3px solid #007bff;
         }
         textarea {
             min-height: 100px;
@@ -154,7 +161,7 @@
             margin-bottom: 10px;
         }
         .modaa-content .mourners {
-            white-space: pre-line; /* שומר על מעברי שורה שהמשתמש הכניס */
+            white-space: pre-line;
             text-align: right;
             margin-top: 20px;
             font-size: 1.1em;
@@ -171,28 +178,30 @@
             font-size: 1em;
             color: #666;
             line-height: 1.7;
-            box-sizing: border-box; /* הוספנו */
+            box-sizing: border-box;
         }
         footer strong { color: #333; }
 
-        /* ==== הוספה חדשה: עיצוב רספונסיבי לנייד ==== */
         @media (max-width: 768px) {
             body {
-                padding: 10px; /* הקטנת ריווח כללי */
+                padding: 10px;
             }
             .container {
-                padding: 15px; /* הקטנת ריווח פנימי */
+                padding: 15px;
             }
             .tehillim-columns {
-                column-count: 1; /* ביטול העמודות בנייד */
+                column-count: 1;
                 column-rule: none;
             }
             h1 {
-                font-size: 1.8em; /* הקטנת כותרת ראשית */
+                font-size: 1.8em;
             }
             .tab-button {
-                padding: 10px 12px; /* הקטנת כפתורי טאבים */
+                padding: 10px 12px;
                 font-size: 1em;
+                flex-grow: 1; /* יגרום לכפתורים למלא את השורה בנייד */
+                text-align: center;
+                margin-left: 0;
             }
             .modaa-output-container {
                 padding: 15px;
@@ -207,7 +216,6 @@
                 font-size: 1.2em;
             }
         }
-        /* ==== סוף הוספה חדשה ==== */
 
 
         @media print {
@@ -230,61 +238,65 @@
 <body>
     <div class="container">
         
-        <div class="tab-buttons">
-            <button class="tab-button active" onclick="openTab(event, 'alon')">יצירת עלון לעילוי נשמת</button>
-            <button class="tab-button" onclick="openTab(event, 'modaa')">יצירת מודעת אבל</button>
+        <div class="tab-buttons" role="tablist">
+            <button class="tab-button active" role="tab" aria-selected="true" aria-controls="alon" onclick="openTab(event, 'alon')">יצירת עלון לעילוי נשמת</button>
+            <button class="tab-button" role="tab" aria-selected="false" aria-controls="modaa" onclick="openTab(event, 'modaa')">יצירת מודעת אבל</button>
         </div>
 
-        <div id="alon" class="tab-pane active">
+        <div id="alon" class="tab-pane active" role="tabpanel">
             <div class="form-container">
                 <h1>יצירת עלון לעילוי נשמת</h1>
-                <div class="form-group">
-                    <label for="name">שם פרטי של הנפטר/ת (ללא שם משפחה)</label>
-                    <input type="text" id="name" placeholder="לדוגמה: משה">
-                </div>
-                <div class="form-group">
-                    <label for="parentName">שם האב/האם</label>
-                    <input type="text" id="parentName" placeholder="לדוגמה: עמרם">
-                </div>
-                <div class="form-group">
-                    <label>מין</label>
-                    <div class="gender-options">
-                        <label><input type="radio" name="gender" value="male" checked> זכר</label>
-                        <label><input type="radio" name="gender" value="female"> נקבה</label>
+                <form id="alonForm">
+                    <div class="form-group">
+                        <label for="name">שם פרטי של הנפטר/ת (ללא שם משפחה)</label>
+                        <input type="text" id="name" placeholder="לדוגמה: משה" required>
                     </div>
-                </div>
-                <button onclick="generateAlon()">צור עלון</button>
+                    <div class="form-group">
+                        <label for="parentName">שם האב/האם</label>
+                        <input type="text" id="parentName" placeholder="לדוגמה: עמרם" required>
+                    </div>
+                    <div class="form-group">
+                        <label>מין</label>
+                        <div class="gender-options">
+                            <label><input type="radio" name="gender" value="male" checked> זכר</label>
+                            <label><input type="radio" name="gender" value="female"> נקבה</label>
+                        </div>
+                    </div>
+                    <button type="submit">צור עלון</button>
+                </form>
             </div>
-            <div id="alonResult" class="hidden"></div>
+            <div id="alonResult" class="hidden" aria-live="polite"></div>
             <button id="alonPrintButton" class="printButton hidden" onclick="window.print()">הדפס עלון</button>
         </div>
 
-        <div id="modaa" class="tab-pane">
+        <div id="modaa" class="tab-pane" role="tabpanel">
             <div class="form-container">
                 <h1>יצירת מודעת אבל</h1>
-                <div class="form-group">
-                    <label for="deceasedName">שם הנפטר/ת</label>
-                    <input type="text" id="deceasedName" placeholder="לדוגמה: יצחק צוברי ז&quot;ל">
-                </div>
-                <div class="form-group">
-                    <label for="deceasedInfo">תיאור הנפטר/ת</label>
-                    <input type="text" id="deceasedInfo" placeholder="לדוגמה: אבינו, סבנו ובעלי היקר">
-                </div>
-                <div class="form-group">
-                    <label for="funeralDetails">מועד ומקום הלוויה</label>
-                    <input type="text" id="funeralDetails" placeholder="לדוגמה: ההלוויה תתקיים ביום ד'...">
-                </div>
-                <div class="form-group">
-                    <label for="shivaDetails">מקום וזמני השבעה</label>
-                    <input type="text" id="shivaDetails" placeholder="לדוגמה: יושבים שבעה בבית המנוח...">
-                </div>
-                <div class="form-group">
-                    <label for="mournersList">האבלים (כתבו כל משפחה בשורה חדשה)</label>
-                    <textarea id="mournersList" placeholder="לדוגמה: רעייתו: בתיה&#10;ילדיו: ...&#10;אחיו: ..."></textarea>
-                </div>
-                <button onclick="generateModaa()">צור מודעת אבל</button>
+                <form id="modaaForm">
+                    <div class="form-group">
+                        <label for="deceasedName">שם הנפטר/ת</label>
+                        <input type="text" id="deceasedName" placeholder="לדוגמה: יצחק צוברי ז&quot;ל" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="deceasedInfo">תיאור הנפטר/ת</label>
+                        <input type="text" id="deceasedInfo" placeholder="לדוגמה: אבינו, סבנו ובעלי היקר" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="funeralDetails">מועד ומקום הלוויה</label>
+                        <input type="text" id="funeralDetails" placeholder="לדוגמה: ההלוויה תתקיים ביום ד'..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="shivaDetails">מקום וזמני השבעה</label>
+                        <input type="text" id="shivaDetails" placeholder="לדוגמה: יושבים שבעה בבית המנוח..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mournersList">האבלים (כתבו כל משפחה בשורה חדשה)</label>
+                        <textarea id="mournersList" placeholder="לדוגמה: רעייתו: בתיה&#10;ילדיו: ...&#10;אחיו: ..." required></textarea>
+                    </div>
+                    <button type="submit">צור מודעת אבל</button>
+                </form>
             </div>
-            <div id="modaaResult" class="hidden"></div>
+            <div id="modaaResult" class="hidden" aria-live="polite"></div>
             <button id="modaaPrintButton" class="printButton hidden" onclick="window.print()">הדפס מודעה</button>
         </div>
 
@@ -308,24 +320,44 @@
 
 
     <script>
-        // --- קוד הלשוניות ---
+        // --- קוד הלשוניות (משופר לנגישות) ---
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
+            
             tabcontent = document.getElementsByClassName("tab-pane");
             for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
                 tabcontent[i].style.display = "none";
             }
+            
             tablinks = document.getElementsByClassName("tab-button");
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
+                tablinks[i].setAttribute("aria-selected", "false");
             }
+            
             document.getElementById(tabName).style.display = "block";
+            document.getElementById(tabName).classList.add("active");
             evt.currentTarget.className += " active";
+            evt.currentTarget.setAttribute("aria-selected", "true");
         }
-        // הפעלה ראשונית
         document.getElementById("alon").style.display = "block";
 
-        // --- קוד יצירת עלון (קיים) ---
+        
+        // --- קוד יצירת עלון (מותאם לטופס) ---
+        document.getElementById('alonForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // מונע שליחה רגילה של הטופס
+            generateAlon();
+        });
+
+        // --- קוד יצירת מודעת אבל (מותאם לטופס) ---
+        document.getElementById('modaaForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // מונע שליחה רגילה של הטופס
+            generateModaa();
+        });
+
+
+        // (כל שאר הפונקציות והמשתנים נשארים זהים)
         const tehillim_119 = {
             'א': `
                 <div class="verse">אַשְׁרֵי תְמִימֵי דָרֶךְ הַהֹלְכִים בְּתוֹרַת יְהוָה.</div><div class="verse">אַשְׁרֵי נֹצְרֵי עֵדֹתָיו בְּכָל לֵב יִדְרְשׁוּהוּ.</div><div class="verse">אַף לֹא פָעֲלוּ עַוְלָה בִּדְרָכָיו הָלָכוּ.</div><div class="verse">אַתָּה צִוִּיתָה פִקֻּדֶיךָ לִשְׁמֹר מְאֹד.</div><div class="verse">אַחֲלַי יִכֹּנוּ דְרָכָי לִשְׁמֹר חֻקֶּיךָ.</div><div class="verse">אָז לֹא אֵבוֹשׁ בְּהַבִּיטִי אֶל כָּל מִצְו‍ֹתֶיךָ.</div><div class="verse">אוֹדְךָ בְּיֹשֶׁר לֵבָב בְּלָמְדִי מִשְׁפְּטֵי צִדְקֶךָ.</div><div class="verse">אֶת חֻקֶּיךָ אֶשְׁמֹר אַל תַּעַזְבֵנִי עַד מְאֹד.</div>
@@ -399,11 +431,8 @@
             const resultDiv = document.getElementById('alonResult');
             const printButton = document.getElementById('alonPrintButton');
 
-            if (!name || !parentName) {
-                alert("אנא מלאו את כל השדות.");
-                return;
-            }
-
+            // ה-JS כבר לא בודק אם השדות מלאים, כי תכונת 'required' עושה זאת
+            
             const cleanName = name.replace(/[^\u0590-\u05EA]/g, '');
             const finalLetters = { 'ך': 'כ', 'ם': 'מ', 'ן': 'נ', 'ף': 'פ', 'ץ': 'צ' };
             const letters = cleanName.split('').map(letter => finalLetters[letter] || letter);
@@ -440,7 +469,6 @@
             printButton.classList.remove('hidden');
         }
 
-        // --- קוד חדש: יצירת מודעת אבל ---
         function generateModaa() {
             const name = document.getElementById('deceasedName').value.trim();
             const info = document.getElementById('deceasedInfo').value.trim();
@@ -451,11 +479,6 @@
             const resultDiv = document.getElementById('modaaResult');
             const printButton = document.getElementById('modaaPrintButton');
             
-            if (!name || !info || !funeral || !shiva || !mourners) {
-                alert("אנא מלאו את כל השדות.");
-                return;
-            }
-
             let htmlContent = `
                 <div class="modaa-output-container">
                     <div class="modaa-header">
