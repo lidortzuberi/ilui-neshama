@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>יצירת עלון לעילוי נשמת</title>
+    <title>יצירת עלון ומודעת אבל</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,7 +28,41 @@
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-sizing: border-box; /* הוספנו כדי שהריווח יחושב נכון */
         }
+        
+        /* --- עיצוב לשוניות --- */
+        .tab-buttons {
+            display: flex;
+            border-bottom: 2px solid #ccc;
+            margin-bottom: 20px;
+        }
+        .tab-button {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            margin-left: 5px;
+            border-radius: 5px 5px 0 0;
+            font-size: 1.1em;
+            font-weight: 700;
+        }
+        .tab-button.active {
+            background-color: #fff;
+            border-bottom: 2px solid #fff;
+            position: relative;
+            top: 2px;
+            border-bottom-color: #fff;
+        }
+        .tab-pane {
+            display: none;
+        }
+        .tab-pane.active {
+            display: block;
+        }
+        /* --- סוף עיצוב לשוניות --- */
+
         h1, h2, h3 {
             font-weight: 700;
             text-align: center;
@@ -36,7 +70,7 @@
         }
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input[type="text"] {
+        input[type="text"], textarea {
             width: 100%;
             padding: 10px;
             border-radius: 4px;
@@ -44,6 +78,10 @@
             box-sizing: border-box;
             font-size: 16px;
             font-family: 'Frank Ruhl Libre', serif;
+        }
+        textarea {
+            min-height: 100px;
+            line-height: 1.7;
         }
         .gender-options { display: flex; gap: 20px; margin-top: 10px; }
         button {
@@ -61,7 +99,8 @@
             font-weight: 700;
         }
         button:hover { background-color: #0056b3; }
-        #result {
+        
+        #alonResult, #modaaResult {
             margin-top: 30px;
             padding: 20px;
             border: 1px solid #ddd;
@@ -81,65 +120,217 @@
             font-size: 1.1em;
         }
         .verse strong { color: #000; }
-        #printButton { margin-top: 20px; background-color: #28a745; }
-        #printButton:hover { background-color: #218838; }
+        .printButton { margin-top: 20px; background-color: #28a745; }
+        .printButton:hover { background-color: #218838; }
         .hidden { display: none; }
 
-        /* --- העיצוב החדש לעמודות --- */
-        .tehillim-columns {
-            column-count: 2; /* מגדיר פריסה של 2 עמודות */
-            column-gap: 40px; /* רווח בין העמודות */
-            column-rule: 1px solid #eee; /* קו הפרדה עדין בין העמודות */
-        }
-        .tehillim-chapter {
-            break-inside: avoid; /* מונע מפרק להישבר ולהתחלק בין שתי עמודות */
-        }
-        .tehillim-chapter h3 {
-            margin-top: 10px;
-            font-size: 1.2em;
-        }
-        /* -------------------------- */
+        .tehillim-columns { column-count: 2; column-gap: 40px; column-rule: 1px solid #eee; }
+        .tehillim-chapter { break-inside: avoid; }
+        .tehillim-chapter h3 { margin-top: 10px; font-size: 1.2em; }
         
+        /* --- עיצוב מודעת אבל --- */
+        .modaa-output-container {
+            border: 10px solid #000;
+            padding: 25px;
+            background: #fff;
+            text-align: center;
+        }
+        .modaa-header {
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .modaa-content {
+            font-size: 1.3em;
+            line-height: 1.8;
+        }
+        .modaa-content p {
+            margin: 15px 0;
+        }
+        .modaa-content strong {
+            font-size: 1.4em;
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .modaa-content .mourners {
+            white-space: pre-line; /* שומר על מעברי שורה שהמשתמש הכניס */
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+        /* --- סוף עיצוב מודעת אבל --- */
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            width: 100%;
+            max-width: 800px;
+            font-size: 1em;
+            color: #666;
+            line-height: 1.7;
+            box-sizing: border-box; /* הוספנו */
+        }
+        footer strong { color: #333; }
+
+        /* ==== הוספה חדשה: עיצוב רספונסיבי לנייד ==== */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px; /* הקטנת ריווח כללי */
+            }
+            .container {
+                padding: 15px; /* הקטנת ריווח פנימי */
+            }
+            .tehillim-columns {
+                column-count: 1; /* ביטול העמודות בנייד */
+                column-rule: none;
+            }
+            h1 {
+                font-size: 1.8em; /* הקטנת כותרת ראשית */
+            }
+            .tab-button {
+                padding: 10px 12px; /* הקטנת כפתורי טאבים */
+                font-size: 1em;
+            }
+            .modaa-output-container {
+                padding: 15px;
+            }
+            .modaa-header {
+                font-size: 1.5em;
+            }
+            .modaa-content {
+                font-size: 1.1em;
+            }
+            .modaa-content strong {
+                font-size: 1.2em;
+            }
+        }
+        /* ==== סוף הוספה חדשה ==== */
+
+
         @media print {
             body { background-color: #fff; font-size: 12pt; }
             .container { box-shadow: none; padding: 0; }
-            .form-container, #printButton { display: none; }
-            #result { margin-top: 0; padding: 0; border: none; }
+            .tab-buttons, .form-container, .printButton, footer {
+                display: none;
+            }
+            #alonResult, #modaaResult {
+                margin-top: 0; padding: 0; border: none;
+            }
+            #modaaResult .modaa-output-container {
+                border: 10px solid #000;
+                padding: 25px;
+                height: 90vh;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="form-container">
-            <h1>יצירת עלון לעילוי נשמת</h1>
-            <div class="form-group">
-                <label for="name">שם פרטי של הנפטר/ת (ללא שם משפחה)</label>
-                <input type="text" id="name" placeholder="לדוגמה: משה">
-            </div>
-            <div class="form-group">
-                <label for="parentName">שם האב/האם</label>
-                <input type="text" id="parentName" placeholder="לדוגמה: עמרם">
-            </div>
-            <div class="form-group">
-                <label>מין</label>
-                <div class="gender-options">
-                    <label><input type="radio" name="gender" value="male" checked> זכר</label>
-                    <label><input type="radio" name="gender" value="female"> נקבה</label>
-                </div>
-            </div>
-            <button onclick="generateContent()">צור עלון</button>
+        
+        <div class="tab-buttons">
+            <button class="tab-button active" onclick="openTab(event, 'alon')">יצירת עלון לעילוי נשמת</button>
+            <button class="tab-button" onclick="openTab(event, 'modaa')">יצירת מודעת אבל</button>
         </div>
-        <div id="result" class="hidden"></div>
-        <button id="printButton" class="hidden" onclick="window.print()">הדפס עלון</button>
+
+        <div id="alon" class="tab-pane active">
+            <div class="form-container">
+                <h1>יצירת עלון לעילוי נשמת</h1>
+                <div class="form-group">
+                    <label for="name">שם פרטי של הנפטר/ת (ללא שם משפחה)</label>
+                    <input type="text" id="name" placeholder="לדוגמה: משה">
+                </div>
+                <div class="form-group">
+                    <label for="parentName">שם האב/האם</label>
+                    <input type="text" id="parentName" placeholder="לדוגמה: עמרם">
+                </div>
+                <div class="form-group">
+                    <label>מין</label>
+                    <div class="gender-options">
+                        <label><input type="radio" name="gender" value="male" checked> זכר</label>
+                        <label><input type="radio" name="gender" value="female"> נקבה</label>
+                    </div>
+                </div>
+                <button onclick="generateAlon()">צור עלון</button>
+            </div>
+            <div id="alonResult" class="hidden"></div>
+            <button id="alonPrintButton" class="printButton hidden" onclick="window.print()">הדפס עלון</button>
+        </div>
+
+        <div id="modaa" class="tab-pane">
+            <div class="form-container">
+                <h1>יצירת מודעת אבל</h1>
+                <div class="form-group">
+                    <label for="deceasedName">שם הנפטר/ת</label>
+                    <input type="text" id="deceasedName" placeholder="לדוגמה: יצחק צוברי ז&quot;ל">
+                </div>
+                <div class="form-group">
+                    <label for="deceasedInfo">תיאור הנפטר/ת</label>
+                    <input type="text" id="deceasedInfo" placeholder="לדוגמה: אבינו, סבנו ובעלי היקר">
+                </div>
+                <div class="form-group">
+                    <label for="funeralDetails">מועד ומקום הלוויה</label>
+                    <input type="text" id="funeralDetails" placeholder="לדוגמה: ההלוויה תתקיים ביום ד'...">
+                </div>
+                <div class="form-group">
+                    <label for="shivaDetails">מקום וזמני השבעה</label>
+                    <input type="text" id="shivaDetails" placeholder="לדוגמה: יושבים שבעה בבית המנוח...">
+                </div>
+                <div class="form-group">
+                    <label for="mournersList">האבלים (כתבו כל משפחה בשורה חדשה)</label>
+                    <textarea id="mournersList" placeholder="לדוגמה: רעייתו: בתיה&#10;ילדיו: ...&#10;אחיו: ..."></textarea>
+                </div>
+                <button onclick="generateModaa()">צור מודעת אבל</button>
+            </div>
+            <div id="modaaResult" class="hidden"></div>
+            <button id="modaaPrintButton" class="printButton hidden" onclick="window.print()">הדפס מודעה</button>
+        </div>
+
     </div>
 
+    <footer>
+        <p>
+            האתר הוקם ברוב אהבה לעילוי נשמת
+            <br>
+            <strong>ציון נשיא בן רבקה ואברהם ז"ל</strong>
+            <br>
+            <strong>פרידה נשיא בת שרה וניסים ע"ה</strong>
+            <br>
+            <strong>יצחק צוברי בן נדרה ויחיא ז"ל</strong>
+            <br>
+            <strong>בתיה צוברי בת זוהרה ויחיא ע"ה</strong>
+            <br>
+            ת.נ.צ.ב.ה.
+        </p>
+    </footer>
+
+
     <script>
-        const tehillim_119 = { /* ... כל תוכן התהילים נשאר זהה ... */
-            'א':`<div class="verse">אַשְׁרֵי תְמִימֵי דָרֶךְ...</div>`, 'ב':`<div class="verse">בַּמֶּה יְזַכֶּה נַּעַר...</div>`,
-             'א': `
+        // --- קוד הלשוניות ---
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-pane");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        // הפעלה ראשונית
+        document.getElementById("alon").style.display = "block";
+
+        // --- קוד יצירת עלון (קיים) ---
+        const tehillim_119 = {
+            'א': `
                 <div class="verse">אַשְׁרֵי תְמִימֵי דָרֶךְ הַהֹלְכִים בְּתוֹרַת יְהוָה.</div><div class="verse">אַשְׁרֵי נֹצְרֵי עֵדֹתָיו בְּכָל לֵב יִדְרְשׁוּהוּ.</div><div class="verse">אַף לֹא פָעֲלוּ עַוְלָה בִּדְרָכָיו הָלָכוּ.</div><div class="verse">אַתָּה צִוִּיתָה פִקֻּדֶיךָ לִשְׁמֹר מְאֹד.</div><div class="verse">אַחֲלַי יִכֹּנוּ דְרָכָי לִשְׁמֹר חֻקֶּיךָ.</div><div class="verse">אָז לֹא אֵבוֹשׁ בְּהַבִּיטִי אֶל כָּל מִצְו‍ֹתֶיךָ.</div><div class="verse">אוֹדְךָ בְּיֹשֶׁר לֵבָב בְּלָמְדִי מִשְׁפְּטֵי צִדְקֶךָ.</div><div class="verse">אֶת חֻקֶּיךָ אֶשְׁמֹר אַל תַּעַזְבֵנִי עַד מְאֹד.</div>
             `, 'ב': `
-                <div class="verse">בַּמֶּה יְזַכֶּה נַּעַר אֶת אָרְחוֹ לִשְׁמֹר כִּדְבָרֶךָ.</div><div class="verse">בְּכָל לִבִּי דְרַשְׁתִּיךָ אַל תַּשְׁגֵּנִי מִמִּצְו‍ֹתֶיךָ.</div><div class="verse">בְּלִבִּי צָפַנְתִּי אִמְרָתֶךָ לְמַעַן לֹא אֶחֱטָא לָךְ.</div><div class="verse">בָּרוּךְ אַתָּה יְהוָה לַמְּדֵנִי חֻקֶּיךָ.</div><div class="verse">בִּשְׂפָתַי סִפַּרְתִּי כֹּל מִשְׁפְּטֵי פִיךָ.</div><div class="verse">בְּדֶרֶךְ עֵדְו‍ֹתֶיךָ שַׂשְׂתִּי כְּעַל כָּל הוֹן.</div><div class="verse">בְּפִקּוּדֶיךָ אָשִׂיחָה וְאַבִּיטָה אֹרְחֹתֶיךָ.</div><div class="verse">בְּחֻקֹּתֶיךָ אֶשְׁתַּעֲשָׁע לֹא אֶשְׁכַּח דְּבָרֶךָ.</div>
+                <div class="verse">בַּמֶּה יְזַכֶּה נַּעַר אֶת אָרְחוֹ לִשְׁמֹר כִּדְבָרֶךָ.</div><div class="verse">בְּכָל לִבִּי דְרַשְׁתִּיךָ אַל תַּשְׁגֵּנִי מִמִּצְו‍ֹתֶיךָ.</div><div class="verse">בְּלִבִּי צָפַנְתִּי אִמְרָתֶךָ לְמַעַן לֹא אֶחֱטָא לָךְ.</div><div class="verse">בָּרוּךְ אַתָּה יְהוָה לַמְּדֵנִי חֻקֶּיךָ.</div><div class="verse">בִּשְׂפָתַי סִפַּרְתִּי כֹּל מִשְׁפְּטֵי פִיךָ.</div><div class="verse">בְּדֶרֶךְ עֵדְו‍ֹתֶיךָ שַׂשׂתִּי כְּעַל כָּל הוֹן.</div><div class="verse">בְּפִקּוּדֶיךָ אָשִׂיחָה וְאַבִּיטָה אֹרְחֹתֶיךָ.</div><div class="verse">בְּחֻקֹּתֶיךָ אֶשְׁתַּעֲשָׁע לֹא אֶשְׁכַּח דְּבָרֶךָ.</div>
             `, 'ג': `
                 <div class="verse">גְּמֹל עַל עַבְדְּךָ אֶחְיֶה וְאֶשְׁמְרָה דְבָרֶךָ.</div><div class="verse">גַּל עֵינַי וְאַבִּיטָה נִפְלָאוֹת מִתּוֹרָתֶךָ.</div><div class="verse">גֵּר אָנֹכִי בָאָרֶץ אַל תַּסְתֵּר מִמֶּנִּי מִצְו‍ֹתֶיךָ.</div><div class="verse">גָּרְסָה נַפְשִׁי לְתַאֲבָה אֶל מִשְׁפָּטֶיךָ בְכָל עֵת.</div><div class="verse">גָּעַרְתָּ זֵדִים אֲרוּרִים הַשֹּׁגִים מִמִּצְו‍ֹתֶיךָ.</div><div class="verse">גַּל מֵעָלַי חֶרְפָּה וָבוּז כִּי עֵדֹתֶיךָ נָצָרְתִּי.</div><div class="verse">גַּם יָשְׁבוּ שָׂרִים בִּי נִדְבָּרוּ עַבְדְּךָ יָשִׂיחַ בְּחֻקֶּיךָ.</div><div class="verse">גַּם עֵדֹתֶיךָ שַׁעֲשֻׁעָי אַנְשֵׁי עֲצָתִי.</div>
             `, 'ד': `
@@ -181,18 +372,15 @@
             `, 'ת': `
                 <div class="verse">תִּקְרַב רִנָּתִי לְפָנֶיךָ יְהוָה כִּדְבָרְךָ הֲבִינֵנִי.</div><div class="verse">תָּבוֹא תְחִנָּתִי לְפָנֶיךָ כְּאִמְרָתְךָ הַצִּילֵנִי.</div><div class="verse">תַּבַּעְנָה שְׂפָתַי תְּהִלָּה כִּי תְלַמְּדֵנִי חֻקֶּיךָ.</div><div class="verse">תַּעַן לְשׁוֹנִי אִמְרָתֶךָ כִּי כָל מִצְו‍ֹתֶיךָ צֶּדֶק.</div><div class="verse">תְּהִי יָדְךָ לְעָזְרֵנִי כִּי פִקּוּדֶיךָ בָחָרְתִּי.</div><div class="verse">תָּאַבְתִּי לִישׁוּעָתְךָ יְהוָה וְתוֹרָתְךָ שַׁעֲשֻׁעָי.</div><div class="verse">תְּחִי נַפְשִׁי וּתְהַלְלֶךָּ וּמִשְׁפָּטֶךָ יַעְזְרֻנִי.</div><div class="verse">תָּעִיתִי כְּשֶׂה אֹבֵד בַּקֵּשׁ עַבְדֶּךָ כִּי מִצְו‍ֹתֶיךָ לֹא שָׁכָחְתִּי.</div>
             `};
-        const hashkava = { /* ... תוכן השכבה ... */
-            male: `<div class="chapter-title">תפילת השכבה - "אל מלא רחמים"</div><div class="verse">אֵל מָלֵא רַחֲמִים...</div>`,
-            female: `<div class="chapter-title">תפילת השכבה - "אל מלא רחמים"</div><div class="verse">אֵל מָלֵא רַחֲמִים...</div>`,
+        const hashkava = {
              male: `
                 <div class="chapter-title">תפילת השכבה - "אל מלא רחמים"</div>
                 <div class="verse">אֵל מָלֵא רַחֲמִים שׁוֹכֵן בַּמְּרוֹמִים, הַמְצֵא מְנוּחָה נְכוֹנָה עַל כַּנְפֵי הַשְּׁכִינָה, בְּמַעֲלוֹת קְדוֹשִׁים וּטְהוֹרִים כְּזוֹהַר הָרָקִיעַ מַזְהִירִים, אֶת נִשְׁמַת [FULL_NAME] שֶׁהָלַךְ לְעוֹלָמוֹ, בַּעֲבוּר שֶׁאֲנַחְנוּ מִתְפַּלְלִים לְעִלּוּי נִשְׁמָתוֹ. לָכֵן בַּעַל הָרַחֲמִים יַסְתִּירֵהוּ בְּסֵתֶר כְּנָפָיו לְעוֹלָמִים, וְיִצְרוֹר בִּצְרוֹר הַחַיִּים אֶת נִשְׁמָתוֹ, ה' הוּא נַחֲלָתוֹ, וְיָנוּחַ בְּשָׁלוֹם עַל מִשְׁכָּבוֹ, וְנֹאמַר אָמֵן.</div>
             `,
             female: `
                 <div class="chapter-title">תפילת השכבה - "אל מלא רחמים"</div>
-                <div class="verse">אֵל מָלֵא רַחֲמִים שׁוֹכֵן בַּמְּרוֹמִים, הַמְצֵא מְנוּחָה נְכוֹנָה עַל כַּנְפֵי הַשְּׁכִינָה, בְּמַעֲלוֹת קְדוֹשִים וּטְהוֹרִים כְּזוֹהַר הָרָקִיעַ מַזְהִירִים, אֶת נִשְׁמַת [FULL_NAME] שֶׁהָלְכָה לְעוֹלָמָהּ, בַּעֲבוּר שֶׁאֲנַחְנוּ מִתְפַּלְלִים לְעִלּוּי נִשְמָתָהּ. לָכֵן בַּעַל הָרַחֲמִים יַסְתִּירֶהָ בְּסֵתֶר כְּנָפָיו לְעוֹלָמִים, וְיִצְרוֹר בִּצְרוֹר הַחַיִּים אֶת נִשְׁמָתָהּ, ה' הוּא נַחֲלָתָהּ, וְתָנוּחַ בְּשָׁלוֹם עַל מִשְׁכָּבָהּ, וְנֹאמַר אָמֵן.</div>
+                <div class="verse">אֵל מָלֵא רַחֲמִים שׁוֹכֵן בַּמְּרוֹמִים, הַמְצֵא מְנוּחָה נְכוֹנָה עַל כַּנְפֵי הַשְּׁכִינָה, בְּמַעֲלוֹת קְדוֹשִים וּטְהוֹרִים כְּזוֹהַר הָרָקִיעַ מַזְהִירִים, אֶת נִשְׁמַת [FULL_NAME] שֶׁהָלְכָה לְעוֹלָמָהּ, בַּעֲבוּר שֶׁאֲנַחְנוּ מִתְפַּלְלִים לְעִלּוּי נִשְׁמָתָהּ. לָכֵן בַּעַל הָרַחֲמִים יַסְתִּירֶהָ בְּסֵתֶר כְּנָפָיו לְעוֹלָמִים, וְיִצְרוֹר בִּצְרוֹר הַחַיִּים אֶת נִשְׁמָתָהּ, ה' הוּא נַחֲלָתָהּ, וְתָנוּחַ בְּשָׁלוֹם עַל מִשְׁכָּבָהּ, וְנֹאמַר אָמֵן.</div>
             `};
-        const kaddishYatom = ``;
         const kaddishYatomContent = `
             <div class="chapter-title">קדיש יתום</div>
             <div class="verse"><strong>האבל:</strong> יִתְגַּדַּל וְיִתְקַדַּשׁ שְׁמֵהּ רַבָּא. (קהל: אָמֵן)</div>
@@ -204,12 +392,12 @@
             <div class="verse">עוֹשֶׂה שָׁלוֹם בִּמְרוֹמָיו, הוּא יַעֲשֶׂה שָׁלוֹם עָלֵינוּ וְעַל כָּל יִשְׂרָאֵל, וְאִמְרוּ אָמֵן. (קהל: אָמֵן)</div>
         `;
         
-        function generateContent() {
+        function generateAlon() {
             const name = document.getElementById('name').value.trim();
             const parentName = document.getElementById('parentName').value.trim();
             const gender = document.querySelector('input[name="gender"]:checked').value;
-            const resultDiv = document.getElementById('result');
-            const printButton = document.getElementById('printButton');
+            const resultDiv = document.getElementById('alonResult');
+            const printButton = document.getElementById('alonPrintButton');
 
             if (!name || !parentName) {
                 alert("אנא מלאו את כל השדות.");
@@ -223,7 +411,6 @@
             
             let htmlContent = `<h2>לְעִלּוּי נִשְׁמַת ${name} ${gender === 'male' ? 'בֶּן' : 'בַּת'} ${parentName} ז"ל</h2>`;
             
-            // --- עטיפת פרקי התהילים באלמנט מיוחד לעיצוב העמודות ---
             let tehillimHtml = '';
             
             tehillimHtml += `<div class="chapter-title">פרקי תהילים לפי אותיות השם '${name}'</div>`;
@@ -241,7 +428,6 @@
             });
 
             htmlContent += `<div class="tehillim-columns">${tehillimHtml}</div>`;
-            // --- סוף אזור העמודות ---
 
             const connectionWord = gender === 'male' ? 'בֶּן' : 'בַּת';
             const fullName = `${name} ${connectionWord} ${parentName}`;
@@ -249,6 +435,43 @@
             
             htmlContent += kaddishYatomContent;
 
+            resultDiv.innerHTML = htmlContent;
+            resultDiv.classList.remove('hidden');
+            printButton.classList.remove('hidden');
+        }
+
+        // --- קוד חדש: יצירת מודעת אבל ---
+        function generateModaa() {
+            const name = document.getElementById('deceasedName').value.trim();
+            const info = document.getElementById('deceasedInfo').value.trim();
+            const funeral = document.getElementById('funeralDetails').value.trim();
+            const shiva = document.getElementById('shivaDetails').value.trim();
+            const mourners = document.getElementById('mournersList').value.trim();
+            
+            const resultDiv = document.getElementById('modaaResult');
+            const printButton = document.getElementById('modaaPrintButton');
+            
+            if (!name || !info || !funeral || !shiva || !mourners) {
+                alert("אנא מלאו את כל השדות.");
+                return;
+            }
+
+            let htmlContent = `
+                <div class="modaa-output-container">
+                    <div class="modaa-header">
+                        בצער רב וביגון קודר אנו מודיעים על פטירתו של
+                    </div>
+                    <div class="modaa-content">
+                        <p>${info}</p>
+                        <strong>${name}</strong>
+                        <p>${funeral}</p>
+                        <p>${shiva}</p>
+                        <p>המשפחה האבלה:</p>
+                        <div class="mourners">${mourners}</div>
+                    </div>
+                </div>
+            `;
+            
             resultDiv.innerHTML = htmlContent;
             resultDiv.classList.remove('hidden');
             printButton.classList.remove('hidden');
